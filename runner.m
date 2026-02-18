@@ -191,15 +191,9 @@ function E = makeSLMField(Zcorr, cCorr, usePreset, Zpreset, aPreset)
 end
 
 function M = imageMetric(img)
-% Simple robust sharpness/contrast metric: normalized variance
+    % Mean squared img intensity
     img = double(img);
-    img = img - min(img(:));
-    mu = mean(img(:));
-    if mu <= 0
-        M = 0;
-        return;
-    end
-    M = var(img(:)) / (mu^2 + eps);
+    M = mean(img^2);
 end
 
 function Zbasis = buildZernikeBasisOnSLM(width, height, nmPairs, maskVec, varargin)
